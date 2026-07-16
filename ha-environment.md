@@ -82,11 +82,10 @@ edit that variable: **Dashboard settings → Variables → (metric) sensors → 
   your real `entity_id`s (Data Explorer in InfluxDB, or HA → Developer Tools → States).
 - **Wrong measurement name** → confirm what HA actually wrote. In InfluxDB Data Explorer, list
   measurements in your bucket; if you see `°F` instead of `°C`, switch the **Temp unit** dropdown.
-- **Series labels** → panels show each sensor's HA **friendly name** (pulled from the
-  `friendly_name_str` field via a `pivot` in every query). If a sensor has no friendly name
-  recorded, it automatically falls back to its `entity_id`. Note the *sensor-picker dropdowns*
-  still list `entity_id`s — that's intentional, since entity ids are indexed tags and reliable
-  to filter on.
+- **Series labels** → panels show each sensor's HA **friendly name**. This build expects the HA
+  `influxdb:` config to list `friendly_name` under `tags_attributes` (so it's stored as a tag).
+  If a point has no friendly-name tag, the label falls back to `entity_id`. The *sensor-picker
+  dropdowns* still list `entity_id`s — intentional, as entity ids are stable to filter on.
 
 ---
 
