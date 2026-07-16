@@ -12,9 +12,9 @@ colour thresholds** and **cross-metric comparison** panels.
 
 | Panel | Type | What it shows |
 |-------|------|---------------|
-| Now — at a glance | 6 × stat tiles | Temp, Humidity, PM2.5, Dewpoint, CO₂, Pressure — tile background coloured by health band |
+| Now — at a glance | 8 × stat tiles | Comfort row (Temp, Humidity, Dewpoint, Pressure) + air row (PM2.5, CO₂, TVOC, Soil moisture) — tile background coloured by health band |
 | Temperature / Humidity — by room | time series | One line per room, dashed guide lines at the "too warm / too humid" bands |
-| PM2.5 / CO₂ | time series | Particulates with EPA AQI bands, CO₂ with ventilation bands; area colour-graded by level |
+| PM2.5 / CO₂ & TVOC | time series | Particulates with EPA AQI bands; CO₂ (left axis, ventilation bands) overlaid with TVOC (right axis, dashed) |
 | Temperature vs Humidity | dual-axis time series | Temp (left axis) overlaid on humidity (right axis) to see how they move together |
 | PM2.5 by room — right now | bar gauge | Compare current particulate levels across rooms side by side |
 | All environment sensors | table | Current snapshot of every env sensor, filterable/sortable |
@@ -26,6 +26,8 @@ colour thresholds** and **cross-metric comparison** panels.
 - **PM2.5 (µg/m³, EPA AQI):** 🟢 0–12 good · 🟡 12–35 moderate · 🟠 35–55 unhealthy-sensitive · 🔴 55–150 unhealthy · 🟣 > 150 hazardous
 - **Dewpoint (°C):** 🔵 < 10 dry · 🟢 10–16 comfortable · 🟡 16–18 sticky · 🟠 18–21 muggy · 🔴 > 21 oppressive
 - **CO₂ (ppm):** 🟢 < 800 fresh · 🟡 800–1000 · 🟠 1000–1400 stuffy · 🔴 > 1400 ventilate
+- **TVOC (ppb):** 🟢 < 220 good · 🟡 220–660 moderate · 🟠 660–2200 poor · 🔴 > 2200 unhealthy
+- **Soil moisture (%):** 🔴 < 20 dry · 🟠 20–35 · 🟢 35–65 happy plants · 🔵 > 65 soggy
 
 ---
 
