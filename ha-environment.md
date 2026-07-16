@@ -12,9 +12,9 @@ colour thresholds** and **cross-metric comparison** panels.
 
 | Panel | Type | What it shows |
 |-------|------|---------------|
-| Now — at a glance | 6 × stat tiles | Latest reading per sensor, tile background coloured by health band |
+| Now — at a glance | 6 × stat tiles | Temp, Humidity, PM2.5, Dewpoint, CO₂, Pressure — tile background coloured by health band |
 | Temperature / Humidity — by room | time series | One line per room, dashed guide lines at the "too warm / too humid" bands |
-| Particulate matter / CO₂ | time series | PM2.5 + PM10 together, CO₂ with ventilation bands; area is colour-graded by level |
+| PM2.5 / CO₂ | time series | Particulates with EPA AQI bands, CO₂ with ventilation bands; area colour-graded by level |
 | Temperature vs Humidity | dual-axis time series | Temp (left axis) overlaid on humidity (right axis) to see how they move together |
 | PM2.5 by room — right now | bar gauge | Compare current particulate levels across rooms side by side |
 | All environment sensors | table | Current snapshot of every env sensor, filterable/sortable |
@@ -24,7 +24,7 @@ colour thresholds** and **cross-metric comparison** panels.
 - **Temperature (°C):** blue < 16 · teal 16–18 · 🟢 green 18–24 (comfortable) · 🟠 orange 24–27 · 🔴 red > 27
 - **Humidity (%):** 🔴 red < 30 (dry) · 🟠 orange 30–40 · 🟢 green 40–60 (ideal) · 🟠 orange 60–70 · 🔴 red > 70 (damp)
 - **PM2.5 (µg/m³, EPA AQI):** 🟢 0–12 good · 🟡 12–35 moderate · 🟠 35–55 unhealthy-sensitive · 🔴 55–150 unhealthy · 🟣 > 150 hazardous
-- **PM10 (µg/m³):** 🟢 0–54 · 🟡 54–154 · 🟠 154–254 · 🔴 > 254
+- **Dewpoint (°C):** 🔵 < 10 dry · 🟢 10–16 comfortable · 🟡 16–18 sticky · 🟠 18–21 muggy · 🔴 > 21 oppressive
 - **CO₂ (ppm):** 🟢 < 800 fresh · 🟡 800–1000 · 🟠 1000–1400 stuffy · 🔴 > 1400 ventilate
 
 ---
@@ -48,8 +48,9 @@ The dashboard is driven by template variables so it adapts to *your* sensor name
 - **InfluxDB source** — which data source to query.
 - **Bucket** — your InfluxDB2 bucket name. Defaults to `homeassistant`; change it to match yours.
 - **Temp unit** — `°C` or `°F`. (This is also the InfluxDB *measurement* name HA uses.)
-- **Temperature / Humidity / PM2.5 / PM10 / CO₂ / Pressure sensors** — multi-select lists,
+- **Temperature / Humidity / PM2.5 / CO₂ / Pressure sensors** — multi-select lists,
   auto-populated from your data. Leave on **All**, or pick specific rooms.
+  (Dewpoint has no picker — it matches any temperature-unit sensor whose id contains `dewpoint`.)
 
 ---
 
@@ -69,7 +70,6 @@ PM10 are both `µg/m³`), the queries also filter by `entity_id`. The sensor-pic
 |--------|-----------|
 | Humidity | `_measurement == "%"` **and** `entity_id =~ /humid/` |
 | PM2.5 | `_measurement == "µg/m³"` **and** `entity_id =~ /pm2/` |
-| PM10 | `_measurement == "µg/m³"` **and** `entity_id =~ /pm10/` |
 | CO₂ | `_measurement == "ppm"` **and** `entity_id =~ /co2/` |
 
 If your entities are named differently (e.g. a PM2.5 sensor whose id doesn't contain `pm2`),

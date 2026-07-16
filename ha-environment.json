@@ -112,23 +112,6 @@
         "skipUrlSync": false
       },
       {
-        "name": "pm10_sensors",
-        "label": "PM10 sensors",
-        "type": "query",
-        "datasource": { "type": "influxdb", "uid": "${datasource}" },
-        "definition": "schema.tagValues(bucket, tag: entity_id, measurement == µg/m³ and entity_id =~ /pm10/)",
-        "query": "import \"influxdata/influxdb/schema\"\nschema.tagValues(bucket: \"${bucket}\", tag: \"entity_id\", predicate: (r) => r._measurement == \"µg/m³\" and r.entity_id =~ /pm10/, start: -30d)",
-        "current": { "text": "All", "value": "$__all" },
-        "options": [],
-        "refresh": 2,
-        "regex": "",
-        "sort": 1,
-        "multi": true,
-        "includeAll": true,
-        "hide": 0,
-        "skipUrlSync": false
-      },
-      {
         "name": "co2_sensors",
         "label": "CO₂ sensors",
         "type": "query",
@@ -312,22 +295,23 @@
     {
       "id": 4,
       "type": "stat",
-      "title": "🌫️ PM10",
+      "title": "💦 Dewpoint",
       "datasource": { "type": "influxdb", "uid": "${datasource}" },
       "gridPos": { "h": 6, "w": 4, "x": 12, "y": 1 },
       "fieldConfig": {
         "defaults": {
-          "unit": "conμgm3",
-          "decimals": 0,
+          "unit": "celsius",
+          "decimals": 1,
           "color": { "mode": "thresholds" },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "value": null, "color": "green" },
-              { "value": 54, "color": "#F2CC0C" },
-              { "value": 154, "color": "orange" },
-              { "value": 254, "color": "red" }
+              { "value": null, "color": "#5794F2" },
+              { "value": 10, "color": "green" },
+              { "value": 16, "color": "#F2CC0C" },
+              { "value": 18, "color": "orange" },
+              { "value": 21, "color": "red" }
             ]
           }
         },
@@ -346,7 +330,7 @@
         {
           "refId": "A",
           "datasource": { "type": "influxdb", "uid": "${datasource}" },
-          "query": "from(bucket: \"${bucket}\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r._measurement == \"µg/m³\" and r.domain == \"sensor\")\n  |> filter(fn: (r) => r.entity_id =~ /${pm10_sensors:regex}/)\n  |> filter(fn: (r) => r._field == \"value\")\n  |> map(fn: (r) => ({ r with _field: if exists r.friendly_name then r.friendly_name else r.entity_id }))\n  |> group(columns: [\"_field\"])\n  |> last()\n  |> keep(columns: [\"_time\", \"_value\", \"_field\"])"
+          "query": "from(bucket: \"${bucket}\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r._measurement == \"${temp_unit}\" and r.domain == \"sensor\")\n  |> filter(fn: (r) => r.entity_id =~ /dewpoint/)\n  |> filter(fn: (r) => r._field == \"value\")\n  |> map(fn: (r) => ({ r with _field: if exists r.friendly_name then r.friendly_name else r.entity_id }))\n  |> group(columns: [\"_field\"])\n  |> last()\n  |> keep(columns: [\"_time\", \"_value\", \"_field\"])"
         }
       ]
     },
@@ -539,7 +523,7 @@
     {
       "id": 12,
       "type": "timeseries",
-      "title": "🫁 Particulate matter (PM2.5 & PM10)",
+      "title": "🫁 PM2.5 — particulates",
       "datasource": { "type": "influxdb", "uid": "${datasource}" },
       "gridPos": { "h": 9, "w": 12, "x": 0, "y": 17 },
       "fieldConfig": {
@@ -581,7 +565,7 @@
         {
           "refId": "A",
           "datasource": { "type": "influxdb", "uid": "${datasource}" },
-          "query": "from(bucket: \"${bucket}\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r._measurement == \"µg/m³\" and r.domain == \"sensor\")\n  |> filter(fn: (r) => r.entity_id =~ /${pm25_sensors:regex}/ or r.entity_id =~ /${pm10_sensors:regex}/)\n  |> filter(fn: (r) => r._field == \"value\")\n  |> map(fn: (r) => ({ r with _field: if exists r.friendly_name then r.friendly_name else r.entity_id }))\n  |> group(columns: [\"_field\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)"
+          "query": "from(bucket: \"${bucket}\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r._measurement == \"µg/m³\" and r.domain == \"sensor\")\n  |> filter(fn: (r) => r.entity_id =~ /${pm25_sensors:regex}/)\n  |> filter(fn: (r) => r._field == \"value\")\n  |> map(fn: (r) => ({ r with _field: if exists r.friendly_name then r.friendly_name else r.entity_id }))\n  |> group(columns: [\"_field\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)"
         }
       ]
     },
