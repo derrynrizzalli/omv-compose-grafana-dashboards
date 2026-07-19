@@ -1,0 +1,147 @@
+{
+  "apiVersion": "dashboard.grafana.app/v1",
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "dbfskwtfmqpmgwa"
+  },
+  "spec": {
+    "annotations": {
+      "list": []
+    },
+    "editable": true,
+    "graphTooltip": 0,
+    "panels": [
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "${datasource}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "filterable": true
+            },
+            "decimals": 1
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "entity_id"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Entity"
+                },
+                {
+                  "id": "custom.width",
+                  "value": 520
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "_measurement"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Unit"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "_value"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Last value"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 20,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 1,
+        "options": {
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": false,
+              "displayName": "Unit"
+            }
+          ]
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "${datasource}"
+            },
+            "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: -24h)\n  |\u003e filter(fn: (r) =\u003e r._field == \"value\")\n  |\u003e filter(fn: (r) =\u003e r.entity_id =~ /temp|humid|co2|pm1|pm2|pm10|tvoc|voc|pressure/)\n  |\u003e group(columns: [\"entity_id\", \"_measurement\"])\n  |\u003e last()\n  |\u003e keep(columns: [\"entity_id\", \"_measurement\", \"_value\"])\n  |\u003e group()",
+            "refId": "A"
+          }
+        ],
+        "title": "Environment sensors only (temp / humidity / co2 / pm / tvoc / pressure)",
+        "type": "table"
+      }
+    ],
+    "refresh": "",
+    "schemaVersion": 39,
+    "style": "dark",
+    "templating": {
+      "list": [
+        {
+          "current": {},
+          "hide": 0,
+          "label": "InfluxDB source",
+          "name": "datasource",
+          "query": "influxdb",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "type": "datasource"
+        },
+        {
+          "current": {
+            "text": "homeassistant",
+            "value": "homeassistant"
+          },
+          "hide": 0,
+          "label": "Bucket",
+          "name": "bucket",
+          "options": [
+            {
+              "selected": true,
+              "text": "homeassistant",
+              "value": "homeassistant"
+            }
+          ],
+          "query": "homeassistant",
+          "skipUrlSync": false,
+          "type": "textbox"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-24h",
+      "to": "now"
+    },
+    "timezone": "browser",
+    "title": "Entity Discovery — environment only"
+  }
+}
