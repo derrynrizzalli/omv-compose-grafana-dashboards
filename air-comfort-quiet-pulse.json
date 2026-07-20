@@ -1,1093 +1,1622 @@
 {
-  "apiVersion": "dashboard.grafana.app/v1",
+  "apiVersion": "dashboard.grafana.app/v2",
   "kind": "Dashboard",
   "metadata": {
     "name": "ddfsl0otcndx4wd"
   },
   "spec": {
-    "annotations": {
-      "list": [
-        {
-          "builtIn": 1,
-          "datasource": {
-            "type": "grafana",
-            "uid": "-- Grafana --"
-          },
+    "annotations": [
+      {
+        "kind": "AnnotationQuery",
+        "spec": {
+          "builtIn": true,
           "enable": true,
           "hide": true,
           "iconColor": "rgba(0, 211, 255, 1)",
           "name": "Annotations \u0026 Alerts",
-          "type": "dashboard"
+          "query": {
+            "datasource": {
+              "name": "-- Grafana --"
+            },
+            "group": "grafana",
+            "kind": "DataQuery",
+            "spec": {},
+            "version": "v0"
+          }
         }
-      ]
-    },
-    "description": "Air \u0026 Comfort — Quiet × Pulse redesign, wired to exact Home Assistant entities.",
-    "editable": true,
-    "fiscalYearStartMonth": 0,
-    "graphTooltip": 1,
-    "links": [],
-    "liveNow": false,
-    "panels": [
-      {
-        "datasource": {
-          "type": "influxdb",
-          "uid": "${datasource}"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "decimals": 1,
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "#5f9fe0",
-                  "value": null
-                },
-                {
-                  "color": "#6cc3d5",
-                  "value": 16
-                },
-                {
-                  "color": "#55c98c",
-                  "value": 18
-                },
-                {
-                  "color": "#e5a94e",
-                  "value": 24
-                },
-                {
-                  "color": "#e2606c",
-                  "value": 27
-                }
-              ]
-            },
-            "unit": "celsius"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 5,
-          "w": 4,
-          "x": 0,
-          "y": 0
-        },
-        "id": 1,
-        "options": {
-          "colorMode": "background",
-          "graphMode": "none",
-          "justifyMode": "auto",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "value",
-          "wideLayout": true
-        },
-        "targets": [
-          {
-            "datasource": {
-              "type": "influxdb",
-              "uid": "${datasource}"
-            },
-            "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"home_wn1820c_indoor_temperature\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e last()\n  |\u003e keep(columns: [\"_time\", \"_value\"])",
-            "refId": "A"
-          }
-        ],
-        "title": "Indoor temp",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "influxdb",
-          "uid": "${datasource}"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "decimals": 0,
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "#e2606c",
-                  "value": null
-                },
-                {
-                  "color": "#e5a94e",
-                  "value": 30
-                },
-                {
-                  "color": "#55c98c",
-                  "value": 40
-                },
-                {
-                  "color": "#e5a94e",
-                  "value": 60
-                },
-                {
-                  "color": "#e2606c",
-                  "value": 70
-                }
-              ]
-            },
-            "unit": "percent"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 5,
-          "w": 4,
-          "x": 4,
-          "y": 0
-        },
-        "id": 2,
-        "options": {
-          "colorMode": "background",
-          "graphMode": "none",
-          "justifyMode": "auto",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "value",
-          "wideLayout": true
-        },
-        "targets": [
-          {
-            "datasource": {
-              "type": "influxdb",
-              "uid": "${datasource}"
-            },
-            "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"home_wn1820c_indoor_humidity\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e last()\n  |\u003e keep(columns: [\"_time\", \"_value\"])",
-            "refId": "A"
-          }
-        ],
-        "title": "Indoor humidity",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "influxdb",
-          "uid": "${datasource}"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "decimals": 0,
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "#55c98c",
-                  "value": null
-                },
-                {
-                  "color": "#e6c85a",
-                  "value": 800
-                },
-                {
-                  "color": "#e5a94e",
-                  "value": 1000
-                },
-                {
-                  "color": "#e2606c",
-                  "value": 1400
-                }
-              ]
-            },
-            "unit": "ppm"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 5,
-          "w": 4,
-          "x": 8,
-          "y": 0
-        },
-        "id": 3,
-        "options": {
-          "colorMode": "background",
-          "graphMode": "none",
-          "justifyMode": "auto",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "value",
-          "wideLayout": true
-        },
-        "targets": [
-          {
-            "datasource": {
-              "type": "influxdb",
-              "uid": "${datasource}"
-            },
-            "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"living_room_living_room_airq_co2\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e last()\n  |\u003e keep(columns: [\"_time\", \"_value\"])",
-            "refId": "A"
-          }
-        ],
-        "title": "CO₂",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "influxdb",
-          "uid": "${datasource}"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "decimals": 0,
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "#55c98c",
-                  "value": null
-                },
-                {
-                  "color": "#e6c85a",
-                  "value": 12
-                },
-                {
-                  "color": "#e5a94e",
-                  "value": 35
-                },
-                {
-                  "color": "#e2606c",
-                  "value": 55
-                }
-              ]
-            },
-            "unit": "conμgm3"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 5,
-          "w": 4,
-          "x": 12,
-          "y": 0
-        },
-        "id": 4,
-        "options": {
-          "colorMode": "background",
-          "graphMode": "none",
-          "justifyMode": "auto",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "value",
-          "wideLayout": true
-        },
-        "targets": [
-          {
-            "datasource": {
-              "type": "influxdb",
-              "uid": "${datasource}"
-            },
-            "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"living_room_air_purifier_pm2_5\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e last()\n  |\u003e keep(columns: [\"_time\", \"_value\"])",
-            "refId": "A"
-          }
-        ],
-        "title": "PM2.5",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "influxdb",
-          "uid": "${datasource}"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "decimals": 0,
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "#55c98c",
-                  "value": null
-                },
-                {
-                  "color": "#e6c85a",
-                  "value": 220
-                },
-                {
-                  "color": "#e5a94e",
-                  "value": 660
-                },
-                {
-                  "color": "#e2606c",
-                  "value": 2200
-                }
-              ]
-            },
-            "unit": "conppb"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 5,
-          "w": 4,
-          "x": 16,
-          "y": 0
-        },
-        "id": 5,
-        "options": {
-          "colorMode": "background",
-          "graphMode": "none",
-          "justifyMode": "auto",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "value",
-          "wideLayout": true
-        },
-        "targets": [
-          {
-            "datasource": {
-              "type": "influxdb",
-              "uid": "${datasource}"
-            },
-            "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"living_room_living_room_airq_tvoc\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e last()\n  |\u003e keep(columns: [\"_time\", \"_value\"])",
-            "refId": "A"
-          }
-        ],
-        "title": "TVOC",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "influxdb",
-          "uid": "${datasource}"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "fixedColor": "#8fa3c0",
-              "mode": "fixed"
-            },
-            "decimals": 0,
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "#8fa3c0",
-                  "value": null
-                }
-              ]
-            },
-            "unit": "pressurehpa"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 5,
-          "w": 4,
-          "x": 20,
-          "y": 0
-        },
-        "id": 6,
-        "options": {
-          "colorMode": "none",
-          "graphMode": "none",
-          "justifyMode": "auto",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "value",
-          "wideLayout": true
-        },
-        "targets": [
-          {
-            "datasource": {
-              "type": "influxdb",
-              "uid": "${datasource}"
-            },
-            "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"home_wn1820c_relative_pressure\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e last()\n  |\u003e keep(columns: [\"_time\", \"_value\"])",
-            "refId": "A"
-          }
-        ],
-        "title": "Pressure",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "influxdb",
-          "uid": "${datasource}"
-        },
-        "description": "warn ≥ 24° · alert ≥ 27°",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "drawStyle": "line",
-              "fillOpacity": 0,
-              "lineInterpolation": "smooth",
-              "lineWidth": 2,
-              "showPoints": "never",
-              "spanNulls": true,
-              "thresholdsStyle": {
-                "mode": "dashed+area"
-              }
-            },
-            "decimals": 1,
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "transparent",
-                  "value": null
-                },
-                {
-                  "color": "#e5a94e",
-                  "value": 24
-                },
-                {
-                  "color": "#e2606c",
-                  "value": 27
-                }
-              ]
-            },
-            "unit": "celsius"
-          },
-          "overrides": [
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Indoor"
-              },
-              "properties": [
-                {
-                  "id": "color",
-                  "value": {
-                    "fixedColor": "#55c98c",
-                    "mode": "fixed"
-                  }
-                },
-                {
-                  "id": "custom.fillOpacity",
-                  "value": 7
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Living Room"
-              },
-              "properties": [
-                {
-                  "id": "color",
-                  "value": {
-                    "fixedColor": "#e39a63",
-                    "mode": "fixed"
-                  }
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Laundry"
-              },
-              "properties": [
-                {
-                  "id": "color",
-                  "value": {
-                    "fixedColor": "#e5a94e",
-                    "mode": "fixed"
-                  }
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Pantry"
-              },
-              "properties": [
-                {
-                  "id": "color",
-                  "value": {
-                    "fixedColor": "#8fa3c0",
-                    "mode": "fixed"
-                  }
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Balcony"
-              },
-              "properties": [
-                {
-                  "id": "color",
-                  "value": {
-                    "fixedColor": "#5f9fe0",
-                    "mode": "fixed"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        "gridPos": {
-          "h": 10,
-          "w": 24,
-          "x": 0,
-          "y": 5
-        },
-        "id": 7,
-        "options": {
-          "legend": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "displayMode": "table",
-            "placement": "right",
-            "showLegend": true
-          },
-          "tooltip": {
-            "mode": "multi",
-            "sort": "desc"
-          }
-        },
-        "targets": [
-          {
-            "datasource": {
-              "type": "influxdb",
-              "uid": "${datasource}"
-            },
-            "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r._field == \"value\")\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"home_wn1820c_indoor_temperature\" or r.entity_id == \"living_room_living_room_temperature_feels_like\" or r.entity_id == \"laundry_laundry_sensor_temperature\" or r.entity_id == \"pantry_pantry_sensor_temperature\" or r.entity_id == \"balcony_wn1820c_temperature_1\")\n  |\u003e map(fn: (r) =\u003e ({ r with _field:\n      if r.entity_id == \"home_wn1820c_indoor_temperature\" then \"Indoor\"\n      else if r.entity_id == \"living_room_living_room_temperature_feels_like\" then \"Living Room\"\n      else if r.entity_id == \"laundry_laundry_sensor_temperature\" then \"Laundry\"\n      else if r.entity_id == \"pantry_pantry_sensor_temperature\" then \"Pantry\"\n      else \"Balcony\" }))\n  |\u003e group(columns: [\"_field\"])\n  |\u003e aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)",
-            "refId": "A"
-          }
-        ],
-        "title": "Temperature — by room",
-        "type": "timeseries"
-      },
-      {
-        "datasource": {
-          "type": "influxdb",
-          "uid": "${datasource}"
-        },
-        "description": "comfort 40–60%",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "drawStyle": "line",
-              "fillOpacity": 0,
-              "lineInterpolation": "smooth",
-              "lineWidth": 2,
-              "showPoints": "never",
-              "spanNulls": true,
-              "thresholdsStyle": {
-                "mode": "line"
-              }
-            },
-            "decimals": 0,
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "transparent",
-                  "value": null
-                },
-                {
-                  "color": "#55c98c",
-                  "value": 40
-                },
-                {
-                  "color": "#e5a94e",
-                  "value": 60
-                }
-              ]
-            },
-            "unit": "percent"
-          },
-          "overrides": [
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Indoor"
-              },
-              "properties": [
-                {
-                  "id": "color",
-                  "value": {
-                    "fixedColor": "#55c98c",
-                    "mode": "fixed"
-                  }
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Balcony"
-              },
-              "properties": [
-                {
-                  "id": "color",
-                  "value": {
-                    "fixedColor": "#5f9fe0",
-                    "mode": "fixed"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 12,
-          "x": 0,
-          "y": 15
-        },
-        "id": 8,
-        "options": {
-          "legend": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "displayMode": "list",
-            "placement": "bottom",
-            "showLegend": true
-          },
-          "tooltip": {
-            "mode": "multi",
-            "sort": "desc"
-          }
-        },
-        "targets": [
-          {
-            "datasource": {
-              "type": "influxdb",
-              "uid": "${datasource}"
-            },
-            "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r._field == \"value\")\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"home_wn1820c_indoor_humidity\" or r.entity_id == \"balcony_wn1820c_humidity_1\")\n  |\u003e map(fn: (r) =\u003e ({ r with _field: if r.entity_id == \"home_wn1820c_indoor_humidity\" then \"Indoor\" else \"Balcony\" }))\n  |\u003e group(columns: [\"_field\"])\n  |\u003e aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)",
-            "refId": "A"
-          }
-        ],
-        "title": "Humidity",
-        "type": "timeseries"
-      },
-      {
-        "datasource": {
-          "type": "influxdb",
-          "uid": "${datasource}"
-        },
-        "description": "800 fresh · 1000 stuffy · 1400 ventilate",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "fixedColor": "#55c98c",
-              "mode": "fixed"
-            },
-            "custom": {
-              "drawStyle": "line",
-              "fillOpacity": 12,
-              "lineInterpolation": "smooth",
-              "lineWidth": 2,
-              "showPoints": "never",
-              "spanNulls": true,
-              "thresholdsStyle": {
-                "mode": "dashed"
-              }
-            },
-            "decimals": 0,
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "transparent",
-                  "value": null
-                },
-                {
-                  "color": "#e6c85a",
-                  "value": 800
-                },
-                {
-                  "color": "#e5a94e",
-                  "value": 1000
-                },
-                {
-                  "color": "#e2606c",
-                  "value": 1400
-                }
-              ]
-            },
-            "unit": "ppm"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 12,
-          "x": 12,
-          "y": 15
-        },
-        "id": 9,
-        "options": {
-          "legend": {
-            "displayMode": "hidden",
-            "placement": "bottom",
-            "showLegend": false
-          },
-          "tooltip": {
-            "mode": "single",
-            "sort": "none"
-          }
-        },
-        "targets": [
-          {
-            "datasource": {
-              "type": "influxdb",
-              "uid": "${datasource}"
-            },
-            "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"living_room_living_room_airq_co2\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |\u003e keep(columns: [\"_time\", \"_value\"])",
-            "refId": "A"
-          }
-        ],
-        "title": "CO₂",
-        "type": "timeseries"
-      },
-      {
-        "datasource": {
-          "type": "influxdb",
-          "uid": "${datasource}"
-        },
-        "description": "12 moderate · 35 unhealthy-sensitive · 55 unhealthy",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "fixedColor": "#55c98c",
-              "mode": "fixed"
-            },
-            "custom": {
-              "drawStyle": "line",
-              "fillOpacity": 10,
-              "lineInterpolation": "smooth",
-              "lineWidth": 2,
-              "showPoints": "never",
-              "spanNulls": true,
-              "thresholdsStyle": {
-                "mode": "dashed"
-              }
-            },
-            "decimals": 0,
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "transparent",
-                  "value": null
-                },
-                {
-                  "color": "#e6c85a",
-                  "value": 12
-                },
-                {
-                  "color": "#e5a94e",
-                  "value": 35
-                },
-                {
-                  "color": "#e2606c",
-                  "value": 55
-                }
-              ]
-            },
-            "unit": "conμgm3"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 8,
-          "x": 0,
-          "y": 23
-        },
-        "id": 10,
-        "options": {
-          "legend": {
-            "displayMode": "hidden",
-            "placement": "bottom",
-            "showLegend": false
-          },
-          "tooltip": {
-            "mode": "single",
-            "sort": "none"
-          }
-        },
-        "targets": [
-          {
-            "datasource": {
-              "type": "influxdb",
-              "uid": "${datasource}"
-            },
-            "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"living_room_air_purifier_pm2_5\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |\u003e keep(columns: [\"_time\", \"_value\"])",
-            "refId": "A"
-          }
-        ],
-        "title": "PM2.5",
-        "type": "timeseries"
-      },
-      {
-        "datasource": {
-          "type": "influxdb",
-          "uid": "${datasource}"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "fixedColor": "#8fa3c0",
-              "mode": "fixed"
-            },
-            "custom": {
-              "drawStyle": "line",
-              "fillOpacity": 8,
-              "lineInterpolation": "smooth",
-              "lineWidth": 2,
-              "showPoints": "never",
-              "spanNulls": true
-            },
-            "decimals": 1,
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "#8fa3c0",
-                  "value": null
-                }
-              ]
-            },
-            "unit": "pressurehpa"
-          },
-          "overrides": [
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Balcony (abs)"
-              },
-              "properties": [
-                {
-                  "id": "color",
-                  "value": {
-                    "fixedColor": "#5f9fe0",
-                    "mode": "fixed"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 8,
-          "x": 8,
-          "y": 23
-        },
-        "id": 11,
-        "options": {
-          "legend": {
-            "displayMode": "list",
-            "placement": "bottom",
-            "showLegend": true
-          },
-          "tooltip": {
-            "mode": "multi",
-            "sort": "none"
-          }
-        },
-        "targets": [
-          {
-            "datasource": {
-              "type": "influxdb",
-              "uid": "${datasource}"
-            },
-            "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r._field == \"value\")\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"home_wn1820c_relative_pressure\" or r.entity_id == \"balcony_wn1820c_absolute_pressure\")\n  |\u003e map(fn: (r) =\u003e ({ r with _field: if r.entity_id == \"home_wn1820c_relative_pressure\" then \"Home (rel)\" else \"Balcony (abs)\" }))\n  |\u003e group(columns: [\"_field\"])\n  |\u003e aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)",
-            "refId": "A"
-          }
-        ],
-        "title": "Pressure",
-        "type": "timeseries"
-      },
-      {
-        "datasource": {
-          "type": "influxdb",
-          "uid": "${datasource}"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "decimals": 1,
-            "max": 32,
-            "min": 0,
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "#5f9fe0",
-                  "value": null
-                },
-                {
-                  "color": "#6cc3d5",
-                  "value": 16
-                },
-                {
-                  "color": "#55c98c",
-                  "value": 18
-                },
-                {
-                  "color": "#e5a94e",
-                  "value": 24
-                },
-                {
-                  "color": "#e2606c",
-                  "value": 27
-                }
-              ]
-            },
-            "unit": "celsius"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 8,
-          "x": 16,
-          "y": 23
-        },
-        "id": 12,
-        "options": {
-          "displayMode": "basic",
-          "orientation": "horizontal",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "showUnfilled": true,
-          "valueMode": "color"
-        },
-        "targets": [
-          {
-            "datasource": {
-              "type": "influxdb",
-              "uid": "${datasource}"
-            },
-            "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r._field == \"value\")\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"home_wn1820c_indoor_temperature\" or r.entity_id == \"living_room_living_room_temperature_feels_like\" or r.entity_id == \"laundry_laundry_sensor_temperature\" or r.entity_id == \"pantry_pantry_sensor_temperature\" or r.entity_id == \"balcony_wn1820c_temperature_1\")\n  |\u003e map(fn: (r) =\u003e ({ r with _field:\n      if r.entity_id == \"home_wn1820c_indoor_temperature\" then \"Indoor\"\n      else if r.entity_id == \"living_room_living_room_temperature_feels_like\" then \"Living Room\"\n      else if r.entity_id == \"laundry_laundry_sensor_temperature\" then \"Laundry\"\n      else if r.entity_id == \"pantry_pantry_sensor_temperature\" then \"Pantry\"\n      else \"Balcony\" }))\n  |\u003e group(columns: [\"_field\"])\n  |\u003e last()\n  |\u003e keep(columns: [\"_time\", \"_value\", \"_field\"])",
-            "refId": "A"
-          }
-        ],
-        "title": "Rooms — temperature now",
-        "type": "bargauge"
       }
     ],
-    "refresh": "5m",
-    "schemaVersion": 39,
-    "style": "dark",
+    "cursorSync": "Crosshair",
+    "description": "Air \u0026 Comfort — Quiet × Pulse redesign, wired to exact Home Assistant entities.",
+    "editable": true,
+    "elements": {
+      "panel-1": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "group": "influxdb",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"home_wn1820c_indoor_temperature\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e last()\n  |\u003e keep(columns: [\"_time\", \"_value\"])"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 1,
+          "links": [],
+          "title": "Indoor temp",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 1,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "#5f9fe0",
+                        "value": 0
+                      },
+                      {
+                        "color": "#6cc3d5",
+                        "value": 16
+                      },
+                      {
+                        "color": "#55c98c",
+                        "value": 18
+                      },
+                      {
+                        "color": "#e5a94e",
+                        "value": 24
+                      },
+                      {
+                        "color": "#e2606c",
+                        "value": 27
+                      }
+                    ]
+                  },
+                  "unit": "celsius"
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "value",
+                "wideLayout": true
+              }
+            },
+            "version": "13.1.0"
+          }
+        }
+      },
+      "panel-10": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "group": "influxdb",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"living_room_air_purifier_pm2_5\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |\u003e keep(columns: [\"_time\", \"_value\"])"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "12 moderate · 35 unhealthy-sensitive · 55 unhealthy",
+          "id": 10,
+          "links": [],
+          "title": "PM2.5",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "fixedColor": "#55c98c",
+                    "mode": "fixed"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "smooth",
+                    "lineWidth": 2,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "showValues": false,
+                    "spanNulls": true,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "dashed"
+                    }
+                  },
+                  "decimals": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "transparent",
+                        "value": 0
+                      },
+                      {
+                        "color": "#e6c85a",
+                        "value": 12
+                      },
+                      {
+                        "color": "#e5a94e",
+                        "value": 35
+                      },
+                      {
+                        "color": "#e2606c",
+                        "value": 55
+                      }
+                    ]
+                  },
+                  "unit": "conμgm3"
+                },
+                "overrides": []
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "hidden",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
+                  "placement": "bottom",
+                  "showLegend": false
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              }
+            },
+            "version": "13.1.0"
+          }
+        }
+      },
+      "panel-11": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "group": "influxdb",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r._field == \"value\")\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"home_wn1820c_relative_pressure\" or r.entity_id == \"balcony_wn1820c_absolute_pressure\")\n  |\u003e map(fn: (r) =\u003e ({ r with _field: if r.entity_id == \"home_wn1820c_relative_pressure\" then \"Home (rel)\" else \"Balcony (abs)\" }))\n  |\u003e group(columns: [\"_field\"])\n  |\u003e aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 11,
+          "links": [],
+          "title": "Pressure",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "fixedColor": "#8fa3c0",
+                    "mode": "fixed"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 8,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "smooth",
+                    "lineWidth": 2,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "showValues": false,
+                    "spanNulls": true,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "decimals": 1,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "#8fa3c0",
+                        "value": 0
+                      }
+                    ]
+                  },
+                  "unit": "pressurehpa"
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Balcony (abs)"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "#5f9fe0",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              }
+            },
+            "version": "13.1.0"
+          }
+        }
+      },
+      "panel-12": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "group": "influxdb",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r._field == \"value\")\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"home_wn1820c_indoor_temperature\" or r.entity_id == \"living_room_living_room_temperature_feels_like\" or r.entity_id == \"laundry_laundry_sensor_temperature\" or r.entity_id == \"pantry_pantry_sensor_temperature\" or r.entity_id == \"balcony_wn1820c_temperature_1\")\n  |\u003e map(fn: (r) =\u003e ({ r with _field:\n      if r.entity_id == \"home_wn1820c_indoor_temperature\" then \"Indoor\"\n      else if r.entity_id == \"living_room_living_room_temperature_feels_like\" then \"Living Room\"\n      else if r.entity_id == \"laundry_laundry_sensor_temperature\" then \"Laundry\"\n      else if r.entity_id == \"pantry_pantry_sensor_temperature\" then \"Pantry\"\n      else \"Balcony\" }))\n  |\u003e group(columns: [\"_field\"])\n  |\u003e last()\n  |\u003e keep(columns: [\"_time\", \"_value\", \"_field\"])"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 12,
+          "links": [],
+          "title": "Rooms — temperature now",
+          "vizConfig": {
+            "group": "bargauge",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 1,
+                  "max": 32,
+                  "min": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "#5f9fe0",
+                        "value": 0
+                      },
+                      {
+                        "color": "#6cc3d5",
+                        "value": 16
+                      },
+                      {
+                        "color": "#55c98c",
+                        "value": 18
+                      },
+                      {
+                        "color": "#e5a94e",
+                        "value": 24
+                      },
+                      {
+                        "color": "#e2606c",
+                        "value": 27
+                      }
+                    ]
+                  },
+                  "unit": "celsius"
+                },
+                "overrides": []
+              },
+              "options": {
+                "displayMode": "basic",
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "overflow": "ellipsis",
+                  "placement": "bottom",
+                  "showLegend": false
+                },
+                "maxVizHeight": 300,
+                "minVizHeight": 16,
+                "minVizWidth": 8,
+                "namePlacement": "auto",
+                "orientation": "horizontal",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showUnfilled": true,
+                "sizing": "auto",
+                "valueMode": "color"
+              }
+            },
+            "version": "13.1.0"
+          }
+        }
+      },
+      "panel-2": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "group": "influxdb",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"home_wn1820c_indoor_humidity\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e last()\n  |\u003e keep(columns: [\"_time\", \"_value\"])"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 2,
+          "links": [],
+          "title": "Indoor humidity",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 0,
+                  "max": 100,
+                  "min": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "#e2606c",
+                        "value": 0
+                      },
+                      {
+                        "color": "#e5a94e",
+                        "value": 30
+                      },
+                      {
+                        "color": "#55c98c",
+                        "value": 40
+                      },
+                      {
+                        "color": "#e5a94e",
+                        "value": 60
+                      },
+                      {
+                        "color": "#e2606c",
+                        "value": 70
+                      }
+                    ]
+                  },
+                  "unit": "percent"
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "value",
+                "wideLayout": true
+              }
+            },
+            "version": "13.1.0"
+          }
+        }
+      },
+      "panel-3": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "group": "influxdb",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"living_room_living_room_airq_co2\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e last()\n  |\u003e keep(columns: [\"_time\", \"_value\"])"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 3,
+          "links": [],
+          "title": "CO₂",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "#55c98c",
+                        "value": 0
+                      },
+                      {
+                        "color": "#e6c85a",
+                        "value": 800
+                      },
+                      {
+                        "color": "#e5a94e",
+                        "value": 1000
+                      },
+                      {
+                        "color": "#e2606c",
+                        "value": 1400
+                      }
+                    ]
+                  },
+                  "unit": "ppm"
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "value",
+                "wideLayout": true
+              }
+            },
+            "version": "13.1.0"
+          }
+        }
+      },
+      "panel-4": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "group": "influxdb",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"living_room_air_purifier_pm2_5\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e last()\n  |\u003e keep(columns: [\"_time\", \"_value\"])"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 4,
+          "links": [],
+          "title": "PM2.5",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "#55c98c",
+                        "value": 0
+                      },
+                      {
+                        "color": "#e6c85a",
+                        "value": 12
+                      },
+                      {
+                        "color": "#e5a94e",
+                        "value": 35
+                      },
+                      {
+                        "color": "#e2606c",
+                        "value": 55
+                      }
+                    ]
+                  },
+                  "unit": "conμgm3"
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "value",
+                "wideLayout": true
+              }
+            },
+            "version": "13.1.0"
+          }
+        }
+      },
+      "panel-5": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "group": "influxdb",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"living_room_living_room_airq_tvoc\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e last()\n  |\u003e keep(columns: [\"_time\", \"_value\"])"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 5,
+          "links": [],
+          "title": "TVOC",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "#55c98c",
+                        "value": 0
+                      },
+                      {
+                        "color": "#e6c85a",
+                        "value": 220
+                      },
+                      {
+                        "color": "#e5a94e",
+                        "value": 660
+                      },
+                      {
+                        "color": "#e2606c",
+                        "value": 2200
+                      }
+                    ]
+                  },
+                  "unit": "conppb"
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "value",
+                "wideLayout": true
+              }
+            },
+            "version": "13.1.0"
+          }
+        }
+      },
+      "panel-6": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "group": "influxdb",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"home_wn1820c_relative_pressure\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e last()\n  |\u003e keep(columns: [\"_time\", \"_value\"])"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 6,
+          "links": [],
+          "title": "Pressure",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "fixedColor": "#8fa3c0",
+                    "mode": "fixed"
+                  },
+                  "decimals": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "#8fa3c0",
+                        "value": 0
+                      }
+                    ]
+                  },
+                  "unit": "pressurehpa"
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "none",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "value",
+                "wideLayout": true
+              }
+            },
+            "version": "13.1.0"
+          }
+        }
+      },
+      "panel-7": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "group": "influxdb",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r._field == \"value\")\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"home_wn1820c_indoor_temperature\" or r.entity_id == \"living_room_living_room_temperature_feels_like\" or r.entity_id == \"laundry_laundry_sensor_temperature\" or r.entity_id == \"pantry_pantry_sensor_temperature\" or r.entity_id == \"balcony_wn1820c_temperature_1\")\n  |\u003e map(fn: (r) =\u003e ({ r with _field:\n      if r.entity_id == \"home_wn1820c_indoor_temperature\" then \"Indoor\"\n      else if r.entity_id == \"living_room_living_room_temperature_feels_like\" then \"Living Room\"\n      else if r.entity_id == \"laundry_laundry_sensor_temperature\" then \"Laundry\"\n      else if r.entity_id == \"pantry_pantry_sensor_temperature\" then \"Pantry\"\n      else \"Balcony\" }))\n  |\u003e group(columns: [\"_field\"])\n  |\u003e aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "warn ≥ 24° · alert ≥ 27°",
+          "id": 7,
+          "links": [],
+          "title": "Temperature — by room",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "smooth",
+                    "lineWidth": 2,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "showValues": false,
+                    "spanNulls": true,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "dashed+area"
+                    }
+                  },
+                  "decimals": 1,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "transparent",
+                        "value": 0
+                      },
+                      {
+                        "color": "#e5a94e",
+                        "value": 24
+                      },
+                      {
+                        "color": "#e2606c",
+                        "value": 27
+                      }
+                    ]
+                  },
+                  "unit": "celsius"
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Indoor"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "#55c98c",
+                          "mode": "fixed"
+                        }
+                      },
+                      {
+                        "id": "custom.fillOpacity",
+                        "value": 7
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Living Room"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "#e39a63",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Laundry"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "#e5a94e",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Pantry"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "#8fa3c0",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Balcony"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "#5f9fe0",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "displayMode": "table",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
+                  "placement": "right",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "desc"
+                }
+              }
+            },
+            "version": "13.1.0"
+          }
+        }
+      },
+      "panel-8": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "group": "influxdb",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r._field == \"value\")\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"home_wn1820c_indoor_humidity\" or r.entity_id == \"balcony_wn1820c_humidity_1\")\n  |\u003e map(fn: (r) =\u003e ({ r with _field: if r.entity_id == \"home_wn1820c_indoor_humidity\" then \"Indoor\" else \"Balcony\" }))\n  |\u003e group(columns: [\"_field\"])\n  |\u003e aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "comfort 40–60%",
+          "id": 8,
+          "links": [],
+          "title": "Humidity",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "smooth",
+                    "lineWidth": 2,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "showValues": false,
+                    "spanNulls": true,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "line"
+                    }
+                  },
+                  "decimals": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "transparent",
+                        "value": 0
+                      },
+                      {
+                        "color": "#55c98c",
+                        "value": 40
+                      },
+                      {
+                        "color": "#e5a94e",
+                        "value": 60
+                      }
+                    ]
+                  },
+                  "unit": "percent"
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Indoor"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "#55c98c",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Balcony"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "#5f9fe0",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "desc"
+                }
+              }
+            },
+            "version": "13.1.0"
+          }
+        }
+      },
+      "panel-9": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "group": "influxdb",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"living_room_sensibo_airq_co2\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |\u003e keep(columns: [\"_time\", \"_value\"])"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "800 fresh · 1000 stuffy · 1400 ventilate",
+          "id": 9,
+          "links": [],
+          "title": "CO₂",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "fixedColor": "#55c98c",
+                    "mode": "fixed"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 12,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "smooth",
+                    "lineWidth": 2,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "showValues": false,
+                    "spanNulls": true,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "dashed"
+                    }
+                  },
+                  "decimals": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "transparent",
+                        "value": 0
+                      },
+                      {
+                        "color": "#e6c85a",
+                        "value": 800
+                      },
+                      {
+                        "color": "#e5a94e",
+                        "value": 1000
+                      },
+                      {
+                        "color": "#e2606c",
+                        "value": 1400
+                      }
+                    ]
+                  },
+                  "unit": "ppm"
+                },
+                "overrides": []
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "hidden",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
+                  "placement": "bottom",
+                  "showLegend": false
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              }
+            },
+            "version": "13.1.0"
+          }
+        }
+      }
+    },
+    "layout": {
+      "kind": "GridLayout",
+      "spec": {
+        "items": [
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-1"
+              },
+              "height": 5,
+              "width": 4,
+              "x": 0,
+              "y": 0
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-2"
+              },
+              "height": 5,
+              "width": 4,
+              "x": 4,
+              "y": 0
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-3"
+              },
+              "height": 5,
+              "width": 4,
+              "x": 8,
+              "y": 0
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-4"
+              },
+              "height": 5,
+              "width": 4,
+              "x": 12,
+              "y": 0
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-5"
+              },
+              "height": 5,
+              "width": 4,
+              "x": 16,
+              "y": 0
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-6"
+              },
+              "height": 5,
+              "width": 4,
+              "x": 20,
+              "y": 0
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-7"
+              },
+              "height": 10,
+              "width": 24,
+              "x": 0,
+              "y": 5
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-8"
+              },
+              "height": 8,
+              "width": 12,
+              "x": 0,
+              "y": 15
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-9"
+              },
+              "height": 8,
+              "width": 12,
+              "x": 12,
+              "y": 15
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-10"
+              },
+              "height": 8,
+              "width": 8,
+              "x": 0,
+              "y": 23
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-11"
+              },
+              "height": 8,
+              "width": 8,
+              "x": 8,
+              "y": 23
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-12"
+              },
+              "height": 8,
+              "width": 8,
+              "x": 16,
+              "y": 23
+            }
+          }
+        ]
+      }
+    },
+    "links": [
+      {
+        "asDropdown": false,
+        "icon": "external link",
+        "includeVars": false,
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": true,
+        "title": "Source (GitHub)",
+        "tooltip": "View source file in repository",
+        "type": "link",
+        "url": "https://github.com/derrynrizzalli/omv-compose-grafana-dashboards/blob/main/air-comfort-quiet-pulse.json"
+      }
+    ],
+    "liveNow": false,
+    "preload": false,
     "tags": [
       "home-assistant",
       "environment",
       "influxdb"
     ],
-    "templating": {
-      "list": [
-        {
-          "current": {},
-          "hide": 0,
-          "label": "InfluxDB source",
-          "name": "datasource",
-          "query": "influxdb",
-          "refresh": 1,
-          "regex": "",
-          "skipUrlSync": false,
-          "type": "datasource"
-        },
-        {
-          "current": {
-            "text": "homeassistant",
-            "value": "homeassistant"
-          },
-          "hide": 0,
-          "label": "Bucket",
-          "name": "bucket",
-          "options": [
-            {
-              "selected": true,
-              "text": "homeassistant",
-              "value": "homeassistant"
-            }
-          ],
-          "query": "homeassistant",
-          "skipUrlSync": false,
-          "type": "textbox"
-        }
-      ]
-    },
-    "time": {
-      "from": "now-24h",
-      "to": "now"
-    },
-    "timepicker": {
-      "refresh_intervals": [
+    "timeSettings": {
+      "autoRefresh": "5m",
+      "autoRefreshIntervals": [
         "30s",
         "1m",
         "5m",
@@ -1095,18 +1624,48 @@
         "30m",
         "1h"
       ],
-      "time_options": [
-        "1h",
-        "6h",
-        "12h",
-        "24h",
-        "2d",
-        "7d",
-        "30d"
-      ]
+      "fiscalYearStartMonth": 0,
+      "from": "now-24h",
+      "hideTimepicker": false,
+      "timezone": "browser",
+      "to": "now"
     },
-    "timezone": "browser",
     "title": "Air \u0026 Comfort — Quiet × Pulse",
-    "weekStart": ""
+    "variables": [
+      {
+        "kind": "DatasourceVariable",
+        "spec": {
+          "allowCustomValue": true,
+          "current": {
+            "text": "influxdb-1",
+            "value": "afs9h3exkcoowd"
+          },
+          "hide": "dontHide",
+          "includeAll": false,
+          "label": "InfluxDB source",
+          "multi": false,
+          "name": "datasource",
+          "options": [],
+          "pluginId": "influxdb",
+          "refresh": "onDashboardLoad",
+          "regex": "",
+          "skipUrlSync": false
+        }
+      },
+      {
+        "kind": "TextVariable",
+        "spec": {
+          "current": {
+            "text": "homeassistant",
+            "value": "homeassistant"
+          },
+          "hide": "dontHide",
+          "label": "Bucket",
+          "name": "bucket",
+          "query": "homeassistant",
+          "skipUrlSync": false
+        }
+      }
+    ]
   }
 }
