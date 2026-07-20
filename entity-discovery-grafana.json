@@ -1,51 +1,137 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_SENSORS",
-      "label": "Sensors datasource",
-      "description": "Pick the same datasource your old dashboard used",
-      "type": "datasource",
-      "pluginId": "influxdb"
-    }
-  ],
   "title": "Entity Discovery",
   "uid": "entity-discovery",
   "style": "dark",
   "editable": true,
-  "time": { "from": "now-24h", "to": "now" },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
   "refresh": "",
   "schemaVersion": 39,
   "panels": [
     {
-      "id": 1, "type": "table", "title": "All measurements",
-      "gridPos": { "h": 12, "w": 8, "x": 0, "y": 0 },
-      "datasource": { "uid": "${DS_SENSORS}" },
-      "targets": [{ "refId": "A", "rawQuery": true, "query": "SHOW MEASUREMENTS", "resultFormat": "table" }],
-      "options": { "showHeader": true },
-      "fieldConfig": { "defaults": {}, "overrides": [] }
-    },
-    {
-      "id": 2, "type": "table", "title": "All entity_id values",
-      "gridPos": { "h": 12, "w": 16, "x": 8, "y": 0 },
-      "datasource": { "uid": "${DS_SENSORS}" },
-      "targets": [{ "refId": "A", "rawQuery": true, "query": "SHOW TAG VALUES WITH KEY = \"entity_id\"", "resultFormat": "table" }],
-      "options": { "showHeader": true },
-      "fieldConfig": { "defaults": {}, "overrides": [] }
-    },
-    {
-      "id": 3, "type": "table", "title": "entity_id per measurement (units → sensors)",
-      "gridPos": { "h": 14, "w": 24, "x": 0, "y": 12 },
-      "datasource": { "uid": "${DS_SENSORS}" },
+      "id": 1,
+      "type": "table",
+      "title": "All measurements",
+      "gridPos": {
+        "h": 12,
+        "w": 8,
+        "x": 0,
+        "y": 0
+      },
+      "datasource": {
+        "uid": "afs9h3exkcoowd"
+      },
       "targets": [
-        { "refId": "A", "rawQuery": true, "query": "SHOW TAG VALUES FROM \"°C\" WITH KEY = \"entity_id\"", "resultFormat": "table", "alias": "°C" },
-        { "refId": "B", "rawQuery": true, "query": "SHOW TAG VALUES FROM \"%\" WITH KEY = \"entity_id\"", "resultFormat": "table", "alias": "%" },
-        { "refId": "C", "rawQuery": true, "query": "SHOW TAG VALUES FROM \"ppm\" WITH KEY = \"entity_id\"", "resultFormat": "table", "alias": "ppm" },
-        { "refId": "D", "rawQuery": true, "query": "SHOW TAG VALUES FROM \"µg/m³\" WITH KEY = \"entity_id\"", "resultFormat": "table", "alias": "µg/m³" },
-        { "refId": "E", "rawQuery": true, "query": "SHOW TAG VALUES FROM \"hPa\" WITH KEY = \"entity_id\"", "resultFormat": "table", "alias": "hPa" },
-        { "refId": "F", "rawQuery": true, "query": "SHOW TAG VALUES FROM \"ppb\" WITH KEY = \"entity_id\"", "resultFormat": "table", "alias": "ppb" }
+        {
+          "refId": "A",
+          "rawQuery": true,
+          "query": "SHOW MEASUREMENTS",
+          "resultFormat": "table"
+        }
       ],
-      "options": { "showHeader": true },
-      "fieldConfig": { "defaults": {}, "overrides": [] }
+      "options": {
+        "showHeader": true
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      }
+    },
+    {
+      "id": 2,
+      "type": "table",
+      "title": "All entity_id values",
+      "gridPos": {
+        "h": 12,
+        "w": 16,
+        "x": 8,
+        "y": 0
+      },
+      "datasource": {
+        "uid": "afs9h3exkcoowd"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "rawQuery": true,
+          "query": "SHOW TAG VALUES WITH KEY = \"entity_id\"",
+          "resultFormat": "table"
+        }
+      ],
+      "options": {
+        "showHeader": true
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      }
+    },
+    {
+      "id": 3,
+      "type": "table",
+      "title": "entity_id per measurement (units → sensors)",
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "datasource": {
+        "uid": "afs9h3exkcoowd"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "rawQuery": true,
+          "query": "SHOW TAG VALUES FROM \"°C\" WITH KEY = \"entity_id\"",
+          "resultFormat": "table",
+          "alias": "°C"
+        },
+        {
+          "refId": "B",
+          "rawQuery": true,
+          "query": "SHOW TAG VALUES FROM \"%\" WITH KEY = \"entity_id\"",
+          "resultFormat": "table",
+          "alias": "%"
+        },
+        {
+          "refId": "C",
+          "rawQuery": true,
+          "query": "SHOW TAG VALUES FROM \"ppm\" WITH KEY = \"entity_id\"",
+          "resultFormat": "table",
+          "alias": "ppm"
+        },
+        {
+          "refId": "D",
+          "rawQuery": true,
+          "query": "SHOW TAG VALUES FROM \"µg/m³\" WITH KEY = \"entity_id\"",
+          "resultFormat": "table",
+          "alias": "µg/m³"
+        },
+        {
+          "refId": "E",
+          "rawQuery": true,
+          "query": "SHOW TAG VALUES FROM \"hPa\" WITH KEY = \"entity_id\"",
+          "resultFormat": "table",
+          "alias": "hPa"
+        },
+        {
+          "refId": "F",
+          "rawQuery": true,
+          "query": "SHOW TAG VALUES FROM \"ppb\" WITH KEY = \"entity_id\"",
+          "resultFormat": "table",
+          "alias": "ppb"
+        }
+      ],
+      "options": {
+        "showHeader": true
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      }
     }
   ]
 }
