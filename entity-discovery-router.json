@@ -1,0 +1,151 @@
+{
+  "annotations": { "list": [ { "builtIn": 1, "datasource": { "type": "grafana", "uid": "-- Grafana --" }, "enable": true, "hide": true, "iconColor": "rgba(0, 211, 255, 1)", "name": "Annotations & Alerts", "type": "dashboard" } ] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "refresh": "",
+  "schemaVersion": 39,
+  "style": "dark",
+  "tags": ["prometheus", "discovery", "openwrt", "router"],
+  "templating": {
+    "list": [
+      {
+        "current": {},
+        "hide": 0,
+        "includeAll": false,
+        "label": "Data source",
+        "multi": false,
+        "name": "DS",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "current": { "text": "MT-5000", "value": "MT-5000" },
+        "datasource": { "type": "prometheus", "uid": "${DS}" },
+        "definition": "label_values(node_load1, host)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Host",
+        "multi": false,
+        "name": "host",
+        "options": [],
+        "query": { "query": "label_values(node_load1, host)", "refId": "StandardVariableQuery" },
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      }
+    ]
+  },
+  "time": { "from": "now-1h", "to": "now" },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Entity Discovery — Router (Prometheus)",
+  "uid": "entity-discovery-router",
+  "version": 1,
+  "weekStart": "",
+  "panels": [
+    {
+      "datasource": { "type": "prometheus", "uid": "${DS}" },
+      "gridPos": { "h": 3, "w": 24, "x": 0, "y": 0 },
+      "id": 100,
+      "options": { "code": { "language": "plaintext", "showLineNumbers": false, "showMiniMap": false }, "content": "## Metric discovery for host **$host**\nEvery metric this exporter publishes, with its labels and current value. Use it to find the exact metric names for building panels. Change **Host** or **Data source** at the top.", "mode": "markdown" },
+      "pluginVersion": "10.0.0",
+      "title": "",
+      "type": "text"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${DS}" },
+      "description": "Distinct metric names exported by this host.",
+      "fieldConfig": { "defaults": { "custom": { "align": "auto", "filterable": true }, "mappings": [] }, "overrides": [] },
+      "gridPos": { "h": 16, "w": 8, "x": 0, "y": 3 },
+      "id": 1,
+      "options": { "showHeader": true, "sortBy": [ { "displayName": "Metric", "desc": false } ] },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "${DS}" }, "expr": "count by(__name__) ({host=\"$host\"})", "format": "table", "instant": true, "range": false, "refId": "A" }
+      ],
+      "title": "All metric names",
+      "transformations": [
+        { "id": "organize", "options": { "excludeByName": { "Time": true, "Value": true }, "renameByName": { "__name__": "Metric" } } }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${DS}" },
+      "description": "Every series for this host: metric name, all labels, and current value.",
+      "fieldConfig": { "defaults": { "custom": { "align": "auto", "filterable": true }, "mappings": [] }, "overrides": [] },
+      "gridPos": { "h": 16, "w": 16, "x": 8, "y": 3 },
+      "id": 2,
+      "options": { "showHeader": true, "sortBy": [ { "displayName": "__name__", "desc": false } ] },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "${DS}" }, "expr": "{host=\"$host\"}", "format": "table", "instant": true, "range": false, "refId": "A" }
+      ],
+      "title": "All series (metric + labels + value)",
+      "transformations": [
+        { "id": "organize", "options": { "excludeByName": { "Time": true, "job": false }, "renameByName": { "__name__": "Metric", "Value": "Current value" } } }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${DS}" },
+      "description": "Temperature sensors (thermal zones).",
+      "fieldConfig": { "defaults": { "custom": { "align": "auto", "filterable": true }, "unit": "celsius", "mappings": [] }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 19 },
+      "id": 3,
+      "options": { "showHeader": true },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "${DS}" }, "expr": "node_temperature_celsius{host=\"$host\"}", "format": "table", "instant": true, "range": false, "refId": "A" }
+      ],
+      "title": "Temperature sensors",
+      "transformations": [
+        { "id": "organize", "options": { "excludeByName": { "Time": true, "job": true, "instance": true, "__name__": true, "device": true, "host": true }, "renameByName": { "Value": "°C" } } }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${DS}" },
+      "description": "Network interfaces seen by the exporter (from received-bytes counters).",
+      "fieldConfig": { "defaults": { "custom": { "align": "auto", "filterable": true }, "unit": "bytes", "mappings": [] }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 19 },
+      "id": 4,
+      "options": { "showHeader": true },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "${DS}" }, "expr": "node_network_receive_bytes_total{host=\"$host\"}", "format": "table", "instant": true, "range": false, "refId": "A" }
+      ],
+      "title": "Network interfaces",
+      "transformations": [
+        { "id": "organize", "options": { "excludeByName": { "Time": true, "job": true, "instance": true, "__name__": true, "host": true }, "renameByName": { "Value": "rx bytes" } } }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "${DS}" },
+      "description": "Filesystem mounts (if the filesystem collector is present).",
+      "fieldConfig": { "defaults": { "custom": { "align": "auto", "filterable": true }, "unit": "bytes", "mappings": [] }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 19 },
+      "id": 5,
+      "options": { "showHeader": true },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "${DS}" }, "expr": "node_filesystem_avail_bytes{host=\"$host\"}", "format": "table", "instant": true, "range": false, "refId": "A" }
+      ],
+      "title": "Filesystems",
+      "transformations": [
+        { "id": "organize", "options": { "excludeByName": { "Time": true, "job": true, "instance": true, "__name__": true, "host": true }, "renameByName": { "Value": "avail bytes" } } }
+      ],
+      "type": "table"
+    }
+  ]
+}
