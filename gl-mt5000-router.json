@@ -48,7 +48,7 @@
   "time": { "from": "now-6h", "to": "now" },
   "timepicker": {},
   "timezone": "",
-  "title": "GL-MT5000 / OpenWrt Router",
+  "title": "Homelab Nodes — CPU / Temp / Mem / Net",
   "uid": "gl-mt5000-openwrt",
   "version": 2,
   "weekStart": "",
@@ -82,7 +82,10 @@
       "id": 11,
       "options": { "colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "horizontal", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "textMode": "value_and_name" },
       "pluginVersion": "10.0.0",
-      "targets": [ { "datasource": { "type": "prometheus", "uid": "${DS}" }, "expr": "node_temperature_celsius{host=\"$host\"}", "legendFormat": "{{sensor}}", "refId": "A" } ],
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "${DS}" }, "expr": "node_temperature_celsius{host=\"$host\"}", "legendFormat": "{{sensor}}", "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "${DS}" }, "expr": "node_hwmon_temp_celsius{host=\"$host\"}", "legendFormat": "{{chip}} {{sensor}}", "refId": "B" }
+      ],
       "title": "Current Temperatures",
       "type": "stat"
     },
@@ -116,7 +119,10 @@
       "gridPos": { "h": 8, "w": 12, "x": 0, "y": 12 },
       "id": 1,
       "options": { "legend": { "calcs": ["mean", "max"], "displayMode": "table", "placement": "bottom", "showLegend": true }, "tooltip": { "mode": "multi", "sort": "desc" } },
-      "targets": [ { "datasource": { "type": "prometheus", "uid": "${DS}" }, "expr": "node_temperature_celsius{host=\"$host\"}", "legendFormat": "{{sensor}}", "refId": "A" } ],
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "${DS}" }, "expr": "node_temperature_celsius{host=\"$host\"}", "legendFormat": "{{sensor}}", "refId": "A" },
+        { "datasource": { "type": "prometheus", "uid": "${DS}" }, "expr": "node_hwmon_temp_celsius{host=\"$host\"}", "legendFormat": "{{chip}} {{sensor}}", "refId": "B" }
+      ],
       "title": "Temperatures",
       "type": "timeseries"
     },
