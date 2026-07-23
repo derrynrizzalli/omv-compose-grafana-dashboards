@@ -13,7 +13,7 @@
           "enable": true,
           "hide": true,
           "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations \u0026 Alerts",
+          "name": "Annotations & Alerts",
           "query": {
             "datasource": {
               "name": "-- Grafana --"
@@ -27,7 +27,7 @@
       }
     ],
     "cursorSync": "Crosshair",
-    "description": "Air \u0026 Comfort — Quiet × Pulse redesign, wired to exact Home Assistant entities.",
+    "description": "Air & Comfort — Quiet × Pulse redesign, wired to exact Home Assistant entities.",
     "editable": true,
     "elements": {
       "panel-1": {
@@ -48,7 +48,7 @@
                       "group": "influxdb",
                       "kind": "DataQuery",
                       "spec": {
-                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"home_wn1820c_indoor_temperature\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e last()\n  |\u003e keep(columns: [\"_time\", \"_value\"])"
+                        "query": "from(bucket: \"${bucket}\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r.entity_id == \"home_wn1820c_indoor_temperature\" and r._field == \"value\")\n  |> group()\n  |> last()\n  |> keep(columns: [\"_time\", \"_value\"])"
                       },
                       "version": "v0"
                     },
@@ -143,7 +143,7 @@
                       "group": "influxdb",
                       "kind": "DataQuery",
                       "spec": {
-                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"living_room_air_purifier_pm2_5\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |\u003e keep(columns: [\"_time\", \"_value\"])"
+                        "query": "from(bucket: \"${bucket}\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r.entity_id == \"living_room_air_purifier_pm2_5\" and r._field == \"value\")\n  |> group()\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> keep(columns: [\"_time\", \"_value\"])"
                       },
                       "version": "v0"
                     },
@@ -271,7 +271,7 @@
                       "group": "influxdb",
                       "kind": "DataQuery",
                       "spec": {
-                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r._field == \"value\")\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"home_wn1820c_relative_pressure\" or r.entity_id == \"balcony_wn1820c_absolute_pressure\")\n  |\u003e map(fn: (r) =\u003e ({ r with _field: if r.entity_id == \"home_wn1820c_relative_pressure\" then \"Home (rel)\" else \"Balcony (abs)\" }))\n  |\u003e group(columns: [\"_field\"])\n  |\u003e aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)"
+                        "query": "from(bucket: \"${bucket}\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r._field == \"value\")\n  |> filter(fn: (r) => r.entity_id == \"home_wn1820c_relative_pressure\" or r.entity_id == \"balcony_wn1820c_absolute_pressure\")\n  |> map(fn: (r) => ({ r with _field: if r.entity_id == \"home_wn1820c_relative_pressure\" then \"Home (rel)\" else \"Balcony (abs)\" }))\n  |> group(columns: [\"_field\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)"
                       },
                       "version": "v0"
                     },
@@ -403,7 +403,7 @@
                       "group": "influxdb",
                       "kind": "DataQuery",
                       "spec": {
-                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r._field == \"value\")\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"home_wn1820c_indoor_temperature\" or r.entity_id == \"living_room_sensibo_temperature_feels_like\" or r.entity_id == \"laundry_sensor_temperature\" or r.entity_id == \"pantry_motion_temperature\" or r.entity_id == \"balcony_wn1820c_temperature_1\")\n  |\u003e map(fn: (r) =\u003e ({ r with _field:\n      if r.entity_id == \"home_wn1820c_indoor_temperature\" then \"Indoor\"\n      else if r.entity_id == \"living_room_sensibo_temperature_feels_like\" then \"Living Room\"\n      else if r.entity_id == \"laundry_sensor_temperature\" then \"Laundry\"\n      else if r.entity_id == \"pantry_motion_temperature\" then \"Pantry\"\n      else \"Balcony\" }))\n  |\u003e group(columns: [\"_field\"])\n  |\u003e last()\n  |\u003e keep(columns: [\"_time\", \"_value\", \"_field\"])"
+                        "query": "from(bucket: \"${bucket}\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r._field == \"value\")\n  |> filter(fn: (r) => r.entity_id == \"home_wn1820c_indoor_temperature\" or r.entity_id == \"living_room_sensibo_temperature_feels_like\" or r.entity_id == \"laundry_sensor_temperature\" or r.entity_id == \"pantry_motion_temperature\" or r.entity_id == \"balcony_wn1820c_temperature_1\")\n  |> map(fn: (r) => ({ r with _field:\n      if r.entity_id == \"home_wn1820c_indoor_temperature\" then \"Indoor\"\n      else if r.entity_id == \"living_room_sensibo_temperature_feels_like\" then \"Living Room\"\n      else if r.entity_id == \"laundry_sensor_temperature\" then \"Laundry\"\n      else if r.entity_id == \"pantry_motion_temperature\" then \"Pantry\"\n      else \"Balcony\" }))\n  |> group(columns: [\"_field\"])\n  |> last()\n  |> keep(columns: [\"_time\", \"_value\", \"_field\"])"
                       },
                       "version": "v0"
                     },
@@ -508,7 +508,7 @@
                       "group": "influxdb",
                       "kind": "DataQuery",
                       "spec": {
-                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"home_wn1820c_indoor_humidity\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e last()\n  |\u003e keep(columns: [\"_time\", \"_value\"])"
+                        "query": "from(bucket: \"${bucket}\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r.entity_id == \"home_wn1820c_indoor_humidity\" and r._field == \"value\")\n  |> group()\n  |> last()\n  |> keep(columns: [\"_time\", \"_value\"])"
                       },
                       "version": "v0"
                     },
@@ -605,7 +605,7 @@
                       "group": "influxdb",
                       "kind": "DataQuery",
                       "spec": {
-                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"living_room_sensibo_airq_co2\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e last()\n  |\u003e keep(columns: [\"_time\", \"_value\"])"
+                        "query": "from(bucket: \"${bucket}\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r.entity_id == \"living_room_sensibo_airq_co2\" and r._field == \"value\")\n  |> group()\n  |> last()\n  |> keep(columns: [\"_time\", \"_value\"])"
                       },
                       "version": "v0"
                     },
@@ -696,7 +696,7 @@
                       "group": "influxdb",
                       "kind": "DataQuery",
                       "spec": {
-                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"living_room_air_purifier_pm2_5\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e last()\n  |\u003e keep(columns: [\"_time\", \"_value\"])"
+                        "query": "from(bucket: \"${bucket}\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r.entity_id == \"living_room_air_purifier_pm2_5\" and r._field == \"value\")\n  |> group()\n  |> last()\n  |> keep(columns: [\"_time\", \"_value\"])"
                       },
                       "version": "v0"
                     },
@@ -787,7 +787,7 @@
                       "group": "influxdb",
                       "kind": "DataQuery",
                       "spec": {
-                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"living_room_sensibo_airq_tvoc\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e last()\n  |\u003e keep(columns: [\"_time\", \"_value\"])"
+                        "query": "from(bucket: \"${bucket}\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r.entity_id == \"living_room_sensibo_airq_tvoc\" and r._field == \"value\")\n  |> group()\n  |> last()\n  |> keep(columns: [\"_time\", \"_value\"])"
                       },
                       "version": "v0"
                     },
@@ -878,7 +878,7 @@
                       "group": "influxdb",
                       "kind": "DataQuery",
                       "spec": {
-                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"home_wn1820c_relative_pressure\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e last()\n  |\u003e keep(columns: [\"_time\", \"_value\"])"
+                        "query": "from(bucket: \"${bucket}\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r.entity_id == \"home_wn1820c_relative_pressure\" and r._field == \"value\")\n  |> group()\n  |> last()\n  |> keep(columns: [\"_time\", \"_value\"])"
                       },
                       "version": "v0"
                     },
@@ -958,7 +958,7 @@
                       "group": "influxdb",
                       "kind": "DataQuery",
                       "spec": {
-                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r._field == \"value\")\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"home_wn1820c_indoor_temperature\" or r.entity_id == \"living_room_sensibo_temperature_feels_like\" or r.entity_id == \"laundry_sensor_temperature\" or r.entity_id == \"pantry_motion_temperature\" or r.entity_id == \"balcony_wn1820c_temperature_1\")\n  |\u003e map(fn: (r) =\u003e ({ r with _field:\n      if r.entity_id == \"home_wn1820c_indoor_temperature\" then \"Indoor\"\n      else if r.entity_id == \"living_room_sensibo_temperature_feels_like\" then \"Living Room\"\n      else if r.entity_id == \"laundry_sensor_temperature\" then \"Laundry\"\n      else if r.entity_id == \"pantry_motion_temperature\" then \"Pantry\"\n      else \"Balcony\" }))\n  |\u003e group(columns: [\"_field\"])\n  |\u003e aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)"
+                        "query": "from(bucket: \"${bucket}\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r._field == \"value\")\n  |> filter(fn: (r) => r.entity_id == \"home_wn1820c_indoor_temperature\" or r.entity_id == \"living_room_sensibo_temperature_feels_like\" or r.entity_id == \"laundry_sensor_temperature\" or r.entity_id == \"pantry_motion_temperature\" or r.entity_id == \"balcony_wn1820c_temperature_1\")\n  |> map(fn: (r) => ({ r with _field:\n      if r.entity_id == \"home_wn1820c_indoor_temperature\" then \"Indoor\"\n      else if r.entity_id == \"living_room_sensibo_temperature_feels_like\" then \"Living Room\"\n      else if r.entity_id == \"laundry_sensor_temperature\" then \"Laundry\"\n      else if r.entity_id == \"pantry_motion_temperature\" then \"Pantry\"\n      else \"Balcony\" }))\n  |> group(columns: [\"_field\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)"
                       },
                       "version": "v0"
                     },
@@ -1163,7 +1163,7 @@
                       "group": "influxdb",
                       "kind": "DataQuery",
                       "spec": {
-                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r._field == \"value\")\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"home_wn1820c_indoor_humidity\" or r.entity_id == \"balcony_wn1820c_humidity_1\")\n  |\u003e map(fn: (r) =\u003e ({ r with _field: if r.entity_id == \"home_wn1820c_indoor_humidity\" then \"Indoor\" else \"Balcony\" }))\n  |\u003e group(columns: [\"_field\"])\n  |\u003e aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)"
+                        "query": "from(bucket: \"${bucket}\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r._field == \"value\")\n  |> filter(fn: (r) => r.entity_id == \"home_wn1820c_indoor_humidity\" or r.entity_id == \"balcony_wn1820c_humidity_1\")\n  |> map(fn: (r) => ({ r with _field: if r.entity_id == \"home_wn1820c_indoor_humidity\" then \"Indoor\" else \"Balcony\" }))\n  |> group(columns: [\"_field\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)"
                       },
                       "version": "v0"
                     },
@@ -1319,7 +1319,7 @@
                       "group": "influxdb",
                       "kind": "DataQuery",
                       "spec": {
-                        "query": "from(bucket: \"${bucket}\")\n  |\u003e range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |\u003e filter(fn: (r) =\u003e r.entity_id == \"living_room_sensibo_airq_co2\" and r._field == \"value\")\n  |\u003e group()\n  |\u003e aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |\u003e keep(columns: [\"_time\", \"_value\"])"
+                        "query": "from(bucket: \"${bucket}\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r.entity_id == \"living_room_sensibo_airq_co2\" and r._field == \"value\")\n  |> group()\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> keep(columns: [\"_time\", \"_value\"])"
                       },
                       "version": "v0"
                     },
@@ -1426,6 +1426,260 @@
               }
             },
             "version": "13.1.0"
+          }
+        }
+      },
+      "panel-13": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "group": "influxdb",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "query": "from(bucket: \"${bucket}\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r.entity_id == \"living_room_sensibo_airq_co2\" and r._field == \"value\")\n  |> group()\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> keep(columns: [\"_time\", \"_value\"])"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "group": "influxdb",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "query": "from(bucket: \"${bucket}\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r.entity_id == \"living_room_air_purifier_pm2_5\" and r._field == \"value\")\n  |> group()\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> keep(columns: [\"_time\", \"_value\"])"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "B"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "group": "influxdb",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "query": "from(bucket: \"${bucket}\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r.entity_id == \"living_room_sensibo_airq_tvoc\" and r._field == \"value\")\n  |> group()\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> keep(columns: [\"_time\", \"_value\"])"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "C"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "CO₂ (ppm, left) · PM2.5 (µg/m³, right) · TVOC (ppb, right)",
+          "id": 13,
+          "links": [],
+          "title": "Air quality — CO₂ · PM2.5 · TVOC",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "series",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 8,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "smooth",
+                    "lineWidth": 2,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "showValues": false,
+                    "spanNulls": true,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "transparent",
+                        "value": 0
+                      }
+                    ]
+                  }
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byFrameRefID",
+                      "options": "A"
+                    },
+                    "properties": [
+                      {
+                        "id": "displayName",
+                        "value": "CO₂"
+                      },
+                      {
+                        "id": "unit",
+                        "value": "ppm"
+                      },
+                      {
+                        "id": "decimals",
+                        "value": 0
+                      },
+                      {
+                        "id": "color",
+                        "value": {
+                          "mode": "fixed",
+                          "fixedColor": "#55c98c"
+                        }
+                      },
+                      {
+                        "id": "custom.axisPlacement",
+                        "value": "left"
+                      },
+                      {
+                        "id": "custom.axisLabel",
+                        "value": "CO₂"
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byFrameRefID",
+                      "options": "B"
+                    },
+                    "properties": [
+                      {
+                        "id": "displayName",
+                        "value": "PM2.5"
+                      },
+                      {
+                        "id": "unit",
+                        "value": "conμgm3"
+                      },
+                      {
+                        "id": "decimals",
+                        "value": 1
+                      },
+                      {
+                        "id": "color",
+                        "value": {
+                          "mode": "fixed",
+                          "fixedColor": "#e5a94e"
+                        }
+                      },
+                      {
+                        "id": "custom.axisPlacement",
+                        "value": "right"
+                      },
+                      {
+                        "id": "custom.axisLabel",
+                        "value": "PM2.5"
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byFrameRefID",
+                      "options": "C"
+                    },
+                    "properties": [
+                      {
+                        "id": "displayName",
+                        "value": "TVOC"
+                      },
+                      {
+                        "id": "unit",
+                        "value": "conppb"
+                      },
+                      {
+                        "id": "decimals",
+                        "value": 0
+                      },
+                      {
+                        "id": "color",
+                        "value": {
+                          "mode": "fixed",
+                          "fixedColor": "#7a9ff0"
+                        }
+                      },
+                      {
+                        "id": "custom.axisPlacement",
+                        "value": "right"
+                      },
+                      {
+                        "id": "custom.axisLabel",
+                        "value": "TVOC"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "displayMode": "table",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "version": "13.1.0"
+            }
           }
         }
       }
@@ -1589,6 +1843,19 @@
               "x": 16,
               "y": 23
             }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-13"
+              },
+              "height": 9,
+              "width": 24,
+              "x": 0,
+              "y": 31
+            }
           }
         ]
       }
@@ -1630,7 +1897,7 @@
       "timezone": "browser",
       "to": "now"
     },
-    "title": "Air \u0026 Comfort — Quiet × Pulse",
+    "title": "Air & Comfort — Quiet × Pulse",
     "variables": [
       {
         "kind": "DatasourceVariable",
