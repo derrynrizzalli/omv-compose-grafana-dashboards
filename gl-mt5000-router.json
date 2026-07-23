@@ -25,10 +25,10 @@
   "schemaVersion": 39,
   "style": "dark",
   "tags": [
-    "openwrt",
-    "router",
-    "mt5000",
-    "prometheus"
+    "prometheus",
+    "node",
+    "homelab",
+    "openwrt"
   ],
   "templating": {
     "list": [
@@ -104,11 +104,11 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
+                "color": "#e2606c",
                 "value": null
               },
               {
-                "color": "green",
+                "color": "#55c98c",
                 "value": 1
               }
             ]
@@ -136,7 +136,10 @@
           "fields": "",
           "values": false
         },
-        "textMode": "value_and_name"
+        "textMode": "value_and_name",
+        "wideLayout": true,
+        "percentChangeColorMode": "standard",
+        "showPercentChange": false
       },
       "pluginVersion": "10.0.0",
       "targets": [
@@ -161,7 +164,8 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "fixedColor": "#8fa3c0",
+            "mode": "fixed"
           },
           "mappings": [],
           "thresholds": {
@@ -185,7 +189,7 @@
       },
       "id": 12,
       "options": {
-        "colorMode": "value",
+        "colorMode": "background",
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
@@ -196,7 +200,10 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "textMode": "value_and_name",
+        "wideLayout": true,
+        "percentChangeColorMode": "standard",
+        "showPercentChange": false
       },
       "pluginVersion": "10.0.0",
       "targets": [
@@ -228,20 +235,29 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "#5f9fe0",
                 "value": null
               },
               {
-                "color": "yellow",
-                "value": 65
+                "color": "#6cc3d5",
+                "value": 40
               },
               {
-                "color": "red",
+                "color": "#55c98c",
+                "value": 50
+              },
+              {
+                "color": "#e5a94e",
+                "value": 70
+              },
+              {
+                "color": "#e2606c",
                 "value": 85
               }
             ]
           },
-          "unit": "celsius"
+          "unit": "celsius",
+          "decimals": 1
         },
         "overrides": []
       },
@@ -253,10 +269,10 @@
       },
       "id": 11,
       "options": {
-        "colorMode": "value",
+        "colorMode": "background",
         "graphMode": "area",
         "justifyMode": "auto",
-        "orientation": "horizontal",
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -264,7 +280,10 @@
           "fields": "",
           "values": false
         },
-        "textMode": "value_and_name"
+        "textMode": "value_and_name",
+        "wideLayout": true,
+        "percentChangeColorMode": "standard",
+        "showPercentChange": false
       },
       "pluginVersion": "10.0.0",
       "targets": [
@@ -326,7 +345,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "decimals": 1
         },
         "overrides": []
       },
@@ -340,6 +360,7 @@
       "options": {
         "legend": {
           "calcs": [
+            "lastNotNull",
             "mean",
             "max"
           ],
@@ -348,8 +369,8 @@
           "showLegend": true
         },
         "tooltip": {
-          "mode": "single",
-          "sort": "none"
+          "mode": "multi",
+          "sort": "desc"
         }
       },
       "targets": [
@@ -414,6 +435,7 @@
       "options": {
         "legend": {
           "calcs": [
+            "lastNotNull",
             "mean",
             "max"
           ],
@@ -487,16 +509,29 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "#5f9fe0",
                 "value": null
               },
               {
-                "color": "red",
+                "color": "#6cc3d5",
+                "value": 40
+              },
+              {
+                "color": "#55c98c",
+                "value": 50
+              },
+              {
+                "color": "#e5a94e",
+                "value": 70
+              },
+              {
+                "color": "#e2606c",
                 "value": 85
               }
             ]
           },
-          "unit": "celsius"
+          "unit": "celsius",
+          "decimals": 1
         },
         "overrides": []
       },
@@ -510,6 +545,7 @@
       "options": {
         "legend": {
           "calcs": [
+            "lastNotNull",
             "mean",
             "max"
           ],
@@ -576,20 +612,21 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "#55c98c",
                 "value": null
               },
               {
-                "color": "yellow",
+                "color": "#e5a94e",
                 "value": 75
               },
               {
-                "color": "red",
+                "color": "#e2606c",
                 "value": 90
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "decimals": 1
         },
         "overrides": []
       },
@@ -603,6 +640,7 @@
       "options": {
         "legend": {
           "calcs": [
+            "lastNotNull",
             "mean",
             "max"
           ],
@@ -611,8 +649,8 @@
           "showLegend": true
         },
         "tooltip": {
-          "mode": "single",
-          "sort": "none"
+          "mode": "multi",
+          "sort": "desc"
         }
       },
       "targets": [
@@ -690,6 +728,7 @@
       "options": {
         "legend": {
           "calcs": [
+            "lastNotNull",
             "mean",
             "max"
           ],
